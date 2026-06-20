@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# --- Retired web prototype (web-prototype/) ---
+web-prototype/node_modules/
+web-prototype/.next/
+web-prototype/out/
+web-prototype/coverage/
+web-prototype/.swc/
+
+# --- macOS / Xcode (PomodoroTimer/) ---
+PomodoroTimer/build/
+PomodoroTimer/DerivedData/
+*.xcuserstate
