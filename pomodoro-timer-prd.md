@@ -197,6 +197,7 @@ lib/
     format.ts              // formatTime()
     sequencing.ts          // getNextSession(), durationFor()
     validation.ts          // clampSettings()/coerceSetting() (FR-5 bounds)
+    state.ts               // createInitialState() factory (keeps constants.ts pure)
     reducer.ts             // pure timerReducer()
     index.ts               // re-exports
   audio/
@@ -230,7 +231,7 @@ Behavior per action:
 - **PAUSE** — `isRunning = false`.
 - **RESET** — `remainingSeconds = totalSeconds = durationFor(currentSession, settings)`; `isRunning = false`. Counters unchanged.
 - **CHANGE_MODE** — set `currentSession = action.session`; `remainingSeconds = totalSeconds = durationFor(action.session, settings)`; `isRunning = false`. Counters unchanged.
-- **SKIP** — compute `next = getNextSession(state, { counted: false })` (see §8.2: a skip never counts toward the long-break threshold); set `currentSession = next`; `remainingSeconds = totalSeconds = durationFor(next, settings)`; `isRunning = false`. **No** counter changes, **no** `completionSignal` change.
+- **SKIP** — compute `next = getNextSession(state, { counted: false })` (see §8.2: a skip never counts toward the long-break threshold); set `currentSession = next`; `remainingSeconds = totalSeconds = durationFor(next, settings)`; `isRunning = false`. **No** `completedFocusSessions` or `completionSignal` change. One exception for cycle correctness: if the skipped session is `longBreak`, reset `cyclePosition = 0` (leaving a long break — whether by completion or skip — ends the cycle; otherwise a skipped long break would trigger another long break after a single focus).
 - **UPDATE_SETTINGS** — merge `action.settings` into `settings` (after validation — see FR-5). If `isRunning` is false, also set `remainingSeconds = totalSeconds = durationFor(currentSession, mergedSettings)` so an idle/paused timer reflects the new duration immediately. If running, leave `remainingSeconds` **and** `totalSeconds` alone (the in-progress session keeps its original total, so the ring stays consistent; the new duration applies to subsequent sessions).
 - **TICK** — the core transition. Guard: if `!isRunning`, return state unchanged.
   - If `remainingSeconds > 1`: `remainingSeconds -= 1` (`totalSeconds` unchanged).
