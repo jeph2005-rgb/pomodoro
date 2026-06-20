@@ -1,0 +1,17 @@
+.counter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.line {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.line strong {
+  color: var(--color-text);
+  font-weight: 600;
+}

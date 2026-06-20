@@ -1,0 +1,81 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.toggle {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-5);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.hidden {
+  display: none;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+.input {
+  width: 4rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.checkboxField {
+  justify-content: flex-start;
+  gap: var(--space-2);
+}
+
+.checkbox {
+  width: var(--space-4);
+  height: var(--space-4);
+  accent-color: var(--accent);
+  cursor: pointer;
+}

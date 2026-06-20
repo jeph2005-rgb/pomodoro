@@ -4,17 +4,27 @@ import { useTimer } from '@/hooks/useTimer';
 import Controls from './Controls';
 import ModeTabs from './ModeTabs';
 import ProgressRing from './ProgressRing';
+import SessionCounter from './SessionCounter';
+import SettingsPanel from './SettingsPanel';
 import TimerDisplay from './TimerDisplay';
 import styles from './PomodoroApp.module.css';
 
 /**
  * Top-level client component: owns the timer hook and composes the UI.
- * Kept thin — presentation lives in the child components. A settings panel
- * (Phase 4) can slot into the card after Controls.
+ * Kept thin — presentation lives in the child components.
  */
 export default function PomodoroApp() {
-  const { state, start, pause, resume, reset, skip, changeMode } = useTimer();
-  const { currentSession, remainingSeconds, totalSeconds, isRunning } = state;
+  const { state, start, pause, resume, reset, skip, changeMode, updateSettings } =
+    useTimer();
+  const {
+    settings,
+    currentSession,
+    remainingSeconds,
+    totalSeconds,
+    isRunning,
+    completedFocusSessions,
+    cyclePosition,
+  } = state;
 
   const atFullDuration = remainingSeconds === totalSeconds;
 
@@ -35,7 +45,12 @@ export default function PomodoroApp() {
           onReset={reset}
           onSkip={skip}
         />
-        {/* Settings panel (Phase 4) slots in here. */}
+        <SessionCounter
+          completedFocusSessions={completedFocusSessions}
+          cyclePosition={cyclePosition}
+          sessionsUntilLongBreak={settings.sessionsUntilLongBreak}
+        />
+        <SettingsPanel settings={settings} updateSettings={updateSettings} />
       </section>
     </div>
   );
