@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		622CDE119B4BC5077EF0F875 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC95BCD18124301950193DFF /* SessionType.swift */; };
 		8C7B9E1A68BBF6E7C9691A4E /* _TempDurationStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40AB85D206C6AA943AC15F7 /* _TempDurationStub.swift */; };
+		960F03D3E25F3BBD8CD7DF6A /* FormatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB5A993DC6FC187BA1A48EB /* FormatTests.swift */; };
 		9777BC8AE20844B569AED3C3 /* PomodoroTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70BDCBD9D0F8A8147B1B92 /* PomodoroTimerApp.swift */; };
 		BC283F9FC8FDA4C3C87F3DF9 /* TimerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3817A190C2C871B1A63694 /* TimerSettings.swift */; };
+		D60323BDDFAE026CBA70AE30 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18506C48945B5F8A70EEACD1 /* Format.swift */; };
 		FA55729E4E27EA26D8A91E30 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B3E6175110966FD5DB08B6 /* TimerState.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,9 +35,11 @@
 
 /* Begin PBXFileReference section */
 		04B796140F371F0084985F2D /* PomodoroTimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PomodoroTimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		18506C48945B5F8A70EEACD1 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		8D4121038FE7FCFC70424658 /* PomodoroTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E70BDCBD9D0F8A8147B1B92 /* PomodoroTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimerApp.swift; sourceTree = "<group>"; };
 		990AE4D040EC19357EA8CAFF /* PomodoroTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PomodoroTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AB5A993DC6FC187BA1A48EB /* FormatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatTests.swift; sourceTree = "<group>"; };
 		AC95BCD18124301950193DFF /* SessionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionType.swift; sourceTree = "<group>"; };
 		B6CE366E99E201D7EFAC3D1B /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		BF3817A190C2C871B1A63694 /* TimerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettings.swift; sourceTree = "<group>"; };
@@ -49,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				B6CE366E99E201D7EFAC3D1B /* .gitkeep */,
+				9AB5A993DC6FC187BA1A48EB /* FormatTests.swift */,
 			);
 			path = Unit;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				F40AB85D206C6AA943AC15F7 /* _TempDurationStub.swift */,
+				18506C48945B5F8A70EEACD1 /* Format.swift */,
 				AC95BCD18124301950193DFF /* SessionType.swift */,
 				BF3817A190C2C871B1A63694 /* TimerSettings.swift */,
 				C8B3E6175110966FD5DB08B6 /* TimerState.swift */,
@@ -223,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				960F03D3E25F3BBD8CD7DF6A /* FormatTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D60323BDDFAE026CBA70AE30 /* Format.swift in Sources */,
 				9777BC8AE20844B569AED3C3 /* PomodoroTimerApp.swift in Sources */,
 				622CDE119B4BC5077EF0F875 /* SessionType.swift in Sources */,
 				BC283F9FC8FDA4C3C87F3DF9 /* TimerSettings.swift in Sources */,
@@ -259,6 +267,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -340,6 +349,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -356,6 +366,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -372,6 +383,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

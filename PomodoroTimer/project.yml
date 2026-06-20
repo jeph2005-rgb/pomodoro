@@ -32,6 +32,9 @@ targets:
       - path: Tests/Unit
     dependencies:
       - target: PomodoroTimer
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
   PomodoroTimerUITests:
     type: bundle.ui-testing
     platform: macOS
@@ -39,6 +42,9 @@ targets:
       - path: Tests/UI
     dependencies:
       - target: PomodoroTimer
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
 schemes:
   PomodoroTimer:
     build:
