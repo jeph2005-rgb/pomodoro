@@ -24,6 +24,18 @@ describe('durationFor', () => {
     expect(durationFor('shortBreak', DEFAULT_SETTINGS)).toBe(5 * 60);
     expect(durationFor('longBreak', DEFAULT_SETTINGS)).toBe(15 * 60);
   });
+
+  it('reads durations from its settings argument, not defaults', () => {
+    const settings = {
+      ...DEFAULT_SETTINGS,
+      focusMinutes: 50,
+      shortBreakMinutes: 8,
+      longBreakMinutes: 30,
+    };
+    expect(durationFor('focus', settings)).toBe(3000);
+    expect(durationFor('shortBreak', settings)).toBe(8 * 60);
+    expect(durationFor('longBreak', settings)).toBe(30 * 60);
+  });
 });
 
 describe('getNextSession', () => {

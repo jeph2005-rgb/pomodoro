@@ -48,12 +48,17 @@ export function timerReducer(state: TimerState, action: TimerAction): TimerState
     case 'SKIP': {
       const next = getNextSession(state, { counted: false });
       const total = durationFor(next, state.settings);
+      // Skipping a longBreak ends the cycle, so reset cyclePosition. Skipping
+      // any other session leaves the cycle counters untouched.
+      const cyclePosition =
+        state.currentSession === 'longBreak' ? 0 : state.cyclePosition;
       return {
         ...state,
         currentSession: next,
         remainingSeconds: total,
         totalSeconds: total,
         isRunning: false,
+        cyclePosition,
       };
     }
 
@@ -78,6 +83,13 @@ export function timerReducer(state: TimerState, action: TimerAction): TimerState
 
       if (state.remainingSeconds > 1) {
         return { ...state, remainingSeconds: state.remainingSeconds - 1 };
+      }
+
+      // Defensive guard: only remainingSeconds === 1 runs the completion path.
+      // A stale TICK delivered when the clock is already at 0 (or below) must
+      // not complete the session a second time.
+      if (state.remainingSeconds <= 0) {
+        return state;
       }
 
       // This tick completes the session: clock reaches 00:00, then the next

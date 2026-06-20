@@ -29,4 +29,10 @@ describe('formatTime', () => {
   it('floors non-integer input', () => {
     expect(formatTime(65.9)).toBe('01:05');
   });
+
+  it('clamps non-finite input (NaN, Infinity) to 00:00', () => {
+    expect(formatTime(NaN)).toBe('00:00');
+    expect(formatTime(Infinity)).toBe('00:00');
+    expect(formatTime(-Infinity)).toBe('00:00');
+  });
 });

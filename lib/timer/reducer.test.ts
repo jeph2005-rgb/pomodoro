@@ -1,4 +1,5 @@
-import { createInitialState, DEFAULT_SETTINGS } from './constants';
+import { DEFAULT_SETTINGS } from './constants';
+import { createInitialState } from './state';
 import { durationFor } from './sequencing';
 import { timerReducer } from './reducer';
 import type { TimerSettings, TimerState } from './types';
@@ -55,6 +56,20 @@ describe('timerReducer', () => {
     it('is a no-op when isRunning is false', () => {
       const state = baseState({ remainingSeconds: 100, isRunning: false });
       expect(timerReducer(state, { type: 'TICK' })).toBe(state);
+    });
+
+    it('TICK at remainingSeconds 0 is a no-op', () => {
+      const state = baseState({
+        currentSession: 'focus',
+        remainingSeconds: 0,
+        isRunning: true,
+        completedFocusSessions: 2,
+        cyclePosition: 2,
+      });
+      const next = timerReducer(state, { type: 'TICK' });
+      expect(next).toBe(state);
+      expect(next.completionSignal).toBe(state.completionSignal);
+      expect(next.completedFocusSessions).toBe(2);
     });
 
     it('completing a focus session increments completedFocusSessions and cyclePosition', () => {
@@ -182,6 +197,30 @@ describe('timerReducer', () => {
       });
       const next = timerReducer(state, { type: 'SKIP' });
       expect(next.currentSession).toBe('shortBreak');
+    });
+
+    it('SKIP from longBreak resets cyclePosition to 0', () => {
+      const state = baseState({
+        currentSession: 'longBreak',
+        cyclePosition: 4,
+        completedFocusSessions: 4,
+      });
+      const next = timerReducer(state, { type: 'SKIP' });
+      expect(next.currentSession).toBe('focus');
+      expect(next.cyclePosition).toBe(0);
+      // SKIP must not touch these.
+      expect(next.completedFocusSessions).toBe(4);
+      expect(next.completionSignal).toBe(state.completionSignal);
+    });
+
+    it('SKIP from shortBreak leaves cyclePosition unchanged', () => {
+      const state = baseState({
+        currentSession: 'shortBreak',
+        cyclePosition: 2,
+      });
+      const next = timerReducer(state, { type: 'SKIP' });
+      expect(next.currentSession).toBe('focus');
+      expect(next.cyclePosition).toBe(2);
     });
   });
 

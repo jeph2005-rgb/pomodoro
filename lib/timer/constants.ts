@@ -1,5 +1,4 @@
-import { durationFor } from './sequencing';
-import type { TimerSettings, TimerState } from './types';
+import type { TimerSettings } from './types';
 
 export const DEFAULT_SETTINGS: TimerSettings = {
   focusMinutes: 25,
@@ -16,20 +15,3 @@ export const MIN_DURATION_MINUTES = 1;
 export const MAX_DURATION_MINUTES = 180;
 export const MIN_SESSIONS_UNTIL_LONG_BREAK = 1;
 export const MAX_SESSIONS_UNTIL_LONG_BREAK = 12;
-
-/** Builds the initial timer state for a fresh focus session. */
-export function createInitialState(
-  settings: TimerSettings = DEFAULT_SETTINGS
-): TimerState {
-  const totalSeconds = durationFor('focus', settings);
-  return {
-    settings,
-    currentSession: 'focus',
-    remainingSeconds: totalSeconds,
-    totalSeconds,
-    isRunning: false,
-    completedFocusSessions: 0,
-    cyclePosition: 0,
-    completionSignal: 0,
-  };
-}

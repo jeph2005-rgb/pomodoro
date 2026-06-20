@@ -12,9 +12,9 @@ export {
   MAX_DURATION_MINUTES,
   MIN_SESSIONS_UNTIL_LONG_BREAK,
   MAX_SESSIONS_UNTIL_LONG_BREAK,
-  createInitialState,
 } from './constants';
 
+export { createInitialState } from './state';
 export { formatTime } from './format';
 export { durationFor, getNextSession } from './sequencing';
 export { clampSettings, coerceSetting } from './validation';
