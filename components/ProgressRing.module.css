@@ -1,0 +1,27 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  display: block;
+}
+
+.track {
+  stroke: var(--color-border);
+}
+
+.indicator {
+  stroke: var(--accent);
+  transition: stroke-dashoffset var(--transition-base), stroke var(--transition-base);
+}
+
+.center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

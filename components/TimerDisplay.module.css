@@ -1,0 +1,9 @@
+.clock {
+  font-family: var(--font-mono);
+  font-size: var(--text-timer);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+  line-height: 1;
+}

@@ -1,8 +1,75 @@
 /*
- * Base reset + minimal globals.
- * NOTE: The full design-token block (:root custom properties) is introduced in
- * Phase 5 per the PRD §10. Keep visual values out of components until then.
+ * Base reset + design tokens.
+ * All visual values (color, spacing, typography, radius, shadow, transition)
+ * are defined once here as CSS custom properties (PRD §3.2 / §10). Component
+ * *.module.css files reference ONLY var(--token) for these — never literals.
+ * A future theme is a token swap, not a component rewrite.
  */
+
+:root {
+  /* Color — neutrals + intent */
+  --color-bg: #f4f4f5;
+  --color-surface: #ffffff;
+  --color-text: #1c1c1f;
+  --color-text-muted: #6b7280;
+  --color-border: #e4e4e7;
+  --color-primary: #ef4444;
+  --color-primary-contrast: #ffffff;
+  --color-success: #16a34a;
+  --color-danger: #dc2626;
+
+  /* Per-mode accents */
+  --color-focus: #ef4444;
+  --color-short-break: #0ea5e9;
+  --color-long-break: #6366f1;
+
+  /* Default accent (overridden per [data-mode]) */
+  --accent: var(--color-focus);
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans, system-ui, sans-serif);
+  --font-mono: var(--font-geist-mono, ui-monospace, monospace);
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-timer: 3.5rem;
+
+  /* Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+  /* Transition */
+  --transition-fast: 120ms ease;
+  --transition-base: 220ms ease;
+}
+
+/* Per-mode accent hook: the app root carries data-mode. */
+[data-mode='focus'] {
+  --accent: var(--color-focus);
+}
+[data-mode='shortBreak'] {
+  --accent: var(--color-short-break);
+}
+[data-mode='longBreak'] {
+  --accent: var(--color-long-break);
+}
 
 *,
 *::before,
@@ -20,8 +87,10 @@ body {
 }
 
 body {
-  font-family: var(--font-geist-sans, system-ui, sans-serif);
+  font-family: var(--font-sans);
   line-height: 1.5;
+  background: var(--color-bg);
+  color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
