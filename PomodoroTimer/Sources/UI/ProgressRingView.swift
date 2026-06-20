@@ -13,16 +13,24 @@ struct ProgressRingView: View {
 
     var body: some View {
         ZStack {
-            Circle().stroke(Color.secondary.opacity(0.2), lineWidth: 14)
-            Circle()
-                .trim(from: 0, to: elapsedFraction)
-                .stroke(accent, style: StrokeStyle(lineWidth: 14, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-                .animation(.linear(duration: 0.25), value: elapsedFraction)
+            ZStack {
+                Circle().stroke(Color.secondary.opacity(0.2), lineWidth: 14)
+                Circle()
+                    .trim(from: 0, to: elapsedFraction)
+                    .stroke(accent, style: StrokeStyle(lineWidth: 14, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+                    .animation(.linear(duration: 0.25), value: elapsedFraction)
+            }
+            .accessibilityElement()
+            .accessibilityIdentifier(A11y.progressRing)
             TimerDisplayView(remainingSeconds: remainingSeconds)
         }
+        // Keep the clock Text individually queryable: putting the ring identifier on
+        // the outer ZStack made SwiftUI merge the inner clock Text into the ring
+        // element, so `clock` was unreachable. Scope the ring id to the ring shapes
+        // and let the container expose its children so `clock` surfaces on its own.
+        .accessibilityElement(children: .contain)
         .frame(width: 240, height: 240)
         .padding()
-        .accessibilityIdentifier(A11y.progressRing)
     }
 }

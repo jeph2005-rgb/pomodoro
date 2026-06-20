@@ -22,6 +22,7 @@
 		97EFB2BD27B6DAC406824590 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD39192B1DBBE2323F32CF5B /* TimerEngine.swift */; };
 		9F704A9520C23B3FC550E3F8 /* Sequencing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3233C5874EBB110939B11AEF /* Sequencing.swift */; };
 		A1427B0E867F5303C29CC3D0 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF528FF84FAB69A461F86816 /* ControlsView.swift */; };
+		B0238F8CFCAFB2470EB55FE5 /* TimerFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F600043CF66004A1C59C2817 /* TimerFlowUITests.swift */; };
 		B9082C35A01B76931379B0E7 /* TimerDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A392EE45D8DEDFD8ED391 /* TimerDisplayView.swift */; };
 		BC283F9FC8FDA4C3C87F3DF9 /* TimerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3817A190C2C871B1A63694 /* TimerSettings.swift */; };
 		C3883A9A70F16CA4BABB7575 /* ModeTabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E086FE0E62649F44CBFAA6 /* ModeTabsView.swift */; };
@@ -79,6 +80,7 @@
 		DD00DD992114F5B8B4F94911 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		E2EBDDE957E395CD82DEE123 /* ReducerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReducerTests.swift; sourceTree = "<group>"; };
 		E392B089D7315F20321F9C6D /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		F600043CF66004A1C59C2817 /* TimerFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerFlowUITests.swift; sourceTree = "<group>"; };
 		FD39192B1DBBE2323F32CF5B /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				DD00DD992114F5B8B4F94911 /* .gitkeep */,
+				F600043CF66004A1C59C2817 /* TimerFlowUITests.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0238F8CFCAFB2470EB55FE5 /* TimerFlowUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
