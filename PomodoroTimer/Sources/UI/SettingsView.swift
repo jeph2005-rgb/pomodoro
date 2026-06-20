@@ -5,8 +5,28 @@ struct SettingsView: View {
     @State private var expanded = false
 
     var body: some View {
-        DisclosureGroup("Settings", isExpanded: $expanded) {
-            Form {
+        // A hand-rolled collapsible section instead of SwiftUI's DisclosureGroup:
+        // the latter only exposes a single DisclosureTriangle accessibility element
+        // that does not toggle from XCUITest's synthesized clicks on macOS. An
+        // explicit header Button is reliably hittable for both users and UI tests.
+        VStack(alignment: .leading, spacing: 8) {
+            Button {
+                withAnimation { expanded.toggle() }
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: "chevron.right")
+                        .rotationEffect(.degrees(expanded ? 90 : 0))
+                        .font(.caption.weight(.semibold))
+                    Text("Settings")
+                    Spacer()
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier(A11y.settingsDisclosure)
+
+            if expanded {
+                Form {
                 stepper("Focus (min)", value: engine.state.settings.focusMinutes,
                         id: A11y.focusField, range: SettingsBounds.minMinutes...SettingsBounds.maxMinutes) {
                     engine.updateSettings(SettingsPatch(focusMinutes: $0))
@@ -33,9 +53,9 @@ struct SettingsView: View {
                     get: { LoginItem.isEnabled },
                     set: { LoginItem.setEnabled($0) }
                 ))
+                }
             }
         }
-        .accessibilityIdentifier(A11y.settingsDisclosure)
     }
 
     @ViewBuilder
