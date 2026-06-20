@@ -39,6 +39,11 @@ final class TimerFlowUITests: XCTestCase {
         let frozen = clockValue(app)
         Thread.sleep(forTimeInterval: 1.0)
         XCTAssertEqual(clockValue(app), frozen)
+        // Resume and confirm the countdown continues (value drops below the frozen snapshot).
+        app.buttons["start-button"].click() // now labelled "Resume"
+        let resumedAndDropped = NSPredicate(format: "value != %@", frozen)
+        expectation(for: resumedAndDropped, evaluatedWith: app.staticTexts["clock"])
+        waitForExpectations(timeout: 5)
     }
 
     func testResetReturnsToFullAndStops() {
@@ -48,7 +53,7 @@ final class TimerFlowUITests: XCTestCase {
         Thread.sleep(forTimeInterval: 0.5)
         app.buttons["reset-button"].click()
         XCTAssertEqual(clockValue(app), "25:00")
-        XCTAssertTrue(app.buttons["start-button"].exists) // back to "Start"
+        XCTAssertEqual(app.buttons["start-button"].label, "Start")
     }
 
     func testSelectingShortBreakTabSwitchesAndStops() {
