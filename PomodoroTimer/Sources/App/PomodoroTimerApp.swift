@@ -2,13 +2,29 @@ import SwiftUI
 
 @main
 struct PomodoroTimerApp: App {
-    @State private var engine = PomodoroTimerApp.makeEngine()
+    @State private var engine: TimerEngine
+
+    init() {
+        let e = PomodoroTimerApp.makeEngine()
+        _engine = State(initialValue: e)
+        NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.didWakeNotification, object: nil, queue: .main) { _ in e.refresh() }
+    }
 
     var body: some Scene {
         Window("Pomodoro", id: "main") {
             TimerWindowView(engine: engine)
+                .onReceive(NotificationCenter.default.publisher(
+                    for: NSApplication.didBecomeActiveNotification)) { _ in engine.refresh() }
         }
         .windowResizability(.contentSize)
+
+        MenuBarExtra {
+            MenuContent(engine: engine)
+        } label: {
+            MenuBarLabel(engine: engine)
+        }
+        .menuBarExtraStyle(.menu)
     }
 
     /// Builds the engine, honoring the `-uiTestMode` launch argument (accelerated clock
