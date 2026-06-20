@@ -31,6 +31,7 @@ struct TimerWindowView: View {
                 cyclePosition: engine.state.cyclePosition,
                 sessionsUntilLongBreak: engine.state.settings.sessionsUntilLongBreak
             )
+            SettingsView(engine: engine)
         }
         .padding(28)
         .frame(minWidth: 380, minHeight: 560)

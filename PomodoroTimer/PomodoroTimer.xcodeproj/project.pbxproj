@@ -28,6 +28,7 @@
 		B9082C35A01B76931379B0E7 /* TimerDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A392EE45D8DEDFD8ED391 /* TimerDisplayView.swift */; };
 		BC283F9FC8FDA4C3C87F3DF9 /* TimerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3817A190C2C871B1A63694 /* TimerSettings.swift */; };
 		C3883A9A70F16CA4BABB7575 /* ModeTabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E086FE0E62649F44CBFAA6 /* ModeTabsView.swift */; };
+		C9331475469410E56C1287F1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E866D451FD2DFA7AE29CD8 /* SettingsView.swift */; };
 		D60323BDDFAE026CBA70AE30 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18506C48945B5F8A70EEACD1 /* Format.swift */; };
 		D857E979653DB9CDF0011173 /* SettingsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871D698434EC2669B2A3498 /* SettingsStoreTests.swift */; };
 		EA5667F11168DAD4E90B36C3 /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051B13D0BB87158948EFCCCF /* MenuBarLabel.swift */; };
@@ -63,6 +64,7 @@
 		18506C48945B5F8A70EEACD1 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		2801AEEDA8B3BD7FD693C7D2 /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
 		3233C5874EBB110939B11AEF /* Sequencing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequencing.swift; sourceTree = "<group>"; };
+		32E866D451FD2DFA7AE29CD8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3E4E1E6AF8E58645320EB6EC /* SequencingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencingTests.swift; sourceTree = "<group>"; };
 		47CF75C65F51C633079CE0D8 /* EngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineTests.swift; sourceTree = "<group>"; };
 		522A392EE45D8DEDFD8ED391 /* TimerDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerDisplayView.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				89E086FE0E62649F44CBFAA6 /* ModeTabsView.swift */,
 				6B8CE577E423A5A97EEDFE7A /* ProgressRingView.swift */,
 				6855FCE998801530DF6B86AE /* SessionCounterView.swift */,
+				32E866D451FD2DFA7AE29CD8 /* SettingsView.swift */,
 				156189FF68B434EBF13BCD8A /* Theme.swift */,
 				522A392EE45D8DEDFD8ED391 /* TimerDisplayView.swift */,
 				130C30EB0BC74F421A3BF1A7 /* TimerWindowView.swift */,
@@ -336,6 +339,7 @@
 				664FB5282E4FF890B0280DA3 /* SessionCounterView.swift in Sources */,
 				622CDE119B4BC5077EF0F875 /* SessionType.swift in Sources */,
 				F69A4CF378589869078688B3 /* SettingsStore.swift in Sources */,
+				C9331475469410E56C1287F1 /* SettingsView.swift in Sources */,
 				FE489CB2ECAC4BE826E220F4 /* Theme.swift in Sources */,
 				B9082C35A01B76931379B0E7 /* TimerDisplayView.swift in Sources */,
 				97EFB2BD27B6DAC406824590 /* TimerEngine.swift in Sources */,
