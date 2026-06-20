@@ -11,6 +11,7 @@
 		17FEC52E3100F1CDD18F9626 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74EDA582A29BA6BF1DEE1E3 /* Validation.swift */; };
 		622CDE119B4BC5077EF0F875 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC95BCD18124301950193DFF /* SessionType.swift */; };
 		664FB5282E4FF890B0280DA3 /* SessionCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6855FCE998801530DF6B86AE /* SessionCounterView.swift */; };
+		6F54594870676DBA33BA8AA7 /* TimerWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C30EB0BC74F421A3BF1A7 /* TimerWindowView.swift */; };
 		79AF652E4462419FDEEEF34F /* ReducerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EBDDE957E395CD82DEE123 /* ReducerTests.swift */; };
 		7F5CFE2F5956228C554D02DD /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70441366F2D88B7206AE478 /* Clock.swift */; };
 		812D5EB70FEC1B0A06249F8F /* SequencingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E1E6AF8E58645320EB6EC /* SequencingTests.swift */; };
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		04B796140F371F0084985F2D /* PomodoroTimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PomodoroTimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D9AC106755BB84146725E4 /* Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
+		130C30EB0BC74F421A3BF1A7 /* TimerWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerWindowView.swift; sourceTree = "<group>"; };
 		156189FF68B434EBF13BCD8A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		18506C48945B5F8A70EEACD1 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		3233C5874EBB110939B11AEF /* Sequencing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequencing.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				6855FCE998801530DF6B86AE /* SessionCounterView.swift */,
 				156189FF68B434EBF13BCD8A /* Theme.swift */,
 				522A392EE45D8DEDFD8ED391 /* TimerDisplayView.swift */,
+				130C30EB0BC74F421A3BF1A7 /* TimerWindowView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				97EFB2BD27B6DAC406824590 /* TimerEngine.swift in Sources */,
 				BC283F9FC8FDA4C3C87F3DF9 /* TimerSettings.swift in Sources */,
 				FA55729E4E27EA26D8A91E30 /* TimerState.swift in Sources */,
+				6F54594870676DBA33BA8AA7 /* TimerWindowView.swift in Sources */,
 				17FEC52E3100F1CDD18F9626 /* Validation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
