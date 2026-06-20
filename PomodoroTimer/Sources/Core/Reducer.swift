@@ -1,5 +1,3 @@
-import Foundation
-
 func reduce(_ state: TimerState, _ action: TimerAction) -> TimerState {
     var s = state
     switch action {
@@ -31,8 +29,9 @@ func reduce(_ state: TimerState, _ action: TimerAction) -> TimerState {
         s.isRunning = false
 
     case .skip:
+        let wasLongBreak = s.currentSession == .longBreak
         let next = nextSession(s, counted: false)
-        if s.currentSession == .longBreak { s.cyclePosition = 0 }
+        if wasLongBreak { s.cyclePosition = 0 }
         s.currentSession = next
         let total = durationFor(next, s.settings)
         s.remainingSeconds = total

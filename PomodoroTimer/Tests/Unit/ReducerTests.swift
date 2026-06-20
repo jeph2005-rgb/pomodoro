@@ -52,13 +52,13 @@ final class ReducerTests: XCTestCase {
     }
 
     func testCompletingFourthFocusGoesToLongBreak() {
-        var s = running(remaining: 0, session: .focus, cyclePosition: 3)
+        var s = running(remaining: 1, session: .focus, cyclePosition: 3)
         s = reduce(s, .tick(remaining: 0))
         XCTAssertEqual(s.currentSession, .longBreak)
     }
 
     func testCompletingLongBreakResetsCycle() {
-        var s = running(remaining: 0, session: .longBreak, cyclePosition: 4)
+        var s = running(remaining: 1, session: .longBreak, cyclePosition: 4)
         s = reduce(s, .tick(remaining: 0))
         XCTAssertEqual(s.cyclePosition, 0)
         XCTAssertEqual(s.currentSession, .focus)
@@ -126,5 +126,13 @@ final class ReducerTests: XCTestCase {
         XCTAssertEqual(s.remainingSeconds, 60)
         XCTAssertEqual(s.totalSeconds, 60)
         XCTAssertFalse(s.isRunning)
+    }
+
+    func testSkipAtThresholdGoesToShortBreakNotLongBreak() {
+        // cyclePosition 3, threshold 4 — a completion here would give longBreak,
+        // but a skip must not.
+        var s = running(remaining: 100, session: .focus, cyclePosition: 3)
+        s = reduce(s, .skip)
+        XCTAssertEqual(s.currentSession, .shortBreak)
     }
 }
