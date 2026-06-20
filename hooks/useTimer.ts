@@ -80,7 +80,7 @@ export function useTimer(): UseTimerResult {
   useEffect(() => {
     const persisted = readPersistedSettings();
     if (persisted) {
-      dispatch({ type: 'HYDRATE', settings: persisted as TimerSettings });
+      dispatch({ type: 'HYDRATE', settings: persisted });
     }
   }, []);
 
@@ -106,14 +106,13 @@ export function useTimer(): UseTimerResult {
     []
   );
 
-  // Persist whenever the (clamped) settings change. Skips the very first run so
-  // we don't echo defaults / hydrated values straight back to storage.
-  const isFirstSettingsRun = useRef(true);
+  // Persist only on genuine settings changes. The ref is seeded with the
+  // initial settings reference, so the initial no-op render (same reference)
+  // is skipped and HYDRATE no longer echoes back to storage.
+  const prevSettings = useRef(state.settings);
   useEffect(() => {
-    if (isFirstSettingsRun.current) {
-      isFirstSettingsRun.current = false;
-      return;
-    }
+    if (prevSettings.current === state.settings) return;
+    prevSettings.current = state.settings;
     persistSettings(state.settings);
   }, [state.settings]);
 

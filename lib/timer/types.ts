@@ -31,7 +31,7 @@ export interface TimerState {
 }
 
 export type TimerAction =
-  | { type: 'HYDRATE'; settings: TimerSettings }
+  | { type: 'HYDRATE'; settings: Partial<TimerSettings> }
   | { type: 'START' }
   | { type: 'PAUSE' }
   | { type: 'RESUME' }

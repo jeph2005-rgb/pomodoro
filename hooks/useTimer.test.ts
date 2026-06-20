@@ -136,6 +136,13 @@ describe('useTimer', () => {
     expect(JSON.parse(raw as string).focusMinutes).toBe(30);
   });
 
+  it('does not write to localStorage on a no-op mount', () => {
+    renderHook(() => useTimer());
+    // No stored data and no user change: the persist effect must not echo
+    // the initial settings reference back to storage.
+    expect(window.localStorage.getItem(STORAGE_KEY)).toBeNull();
+  });
+
   it('stops ticking on unmount (no leaked interval)', () => {
     const { result, unmount } = renderHook(() => useTimer());
     act(() => result.current.start());

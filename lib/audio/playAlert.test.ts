@@ -38,6 +38,11 @@ describe('playAlert', () => {
     let startCalls: number;
 
     beforeEach(() => {
+      // Reset the module registry first so each test starts with a clean
+      // module-level shared context (sharedContext = null) before the mock is
+      // installed and before any dynamic import.
+      jest.resetModules();
+
       createdContexts = 0;
       resumeCalls = 0;
       startCalls = 0;
@@ -82,12 +87,9 @@ describe('playAlert', () => {
 
     afterEach(() => {
       delete (window as unknown as { AudioContext?: unknown }).AudioContext;
-      jest.resetModules();
     });
 
     it('plays a tone via a single shared context', async () => {
-      // Re-import so the module-level shared context is fresh for this mock.
-      jest.resetModules();
       const mod = await import('./playAlert');
       mod.unlockAudio();
       mod.playAlert();
