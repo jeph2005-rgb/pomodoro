@@ -20,7 +20,7 @@ export default function SessionCounter({
   sessionsUntilLongBreak,
 }: SessionCounterProps) {
   return (
-    <div className={styles.counter}>
+    <div className={styles.counter} role="group" aria-label="Session progress">
       <p className={styles.line}>
         Completed focus sessions: <strong>{completedFocusSessions}</strong>
       </p>

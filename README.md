@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pomodoro Timer
 
-## Getting Started
+A minimal, accessible Pomodoro timer built with Next.js 16 (App Router) and React 19. It runs focus / short-break / long-break sessions with a circular progress ring, a session counter, configurable durations, optional auto-start of the next session, and an audio alert (plus a screen-reader announcement) on each completion. Settings persist to `localStorage`.
 
-First, run the development server:
+## Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Test
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test          # run the Jest suite once
+npm run test:watch # watch mode
+```
 
-## Learn More
+Run a single file or filter by name:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npx jest path/to/file.test.ts
+npx jest -t "name"
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run build   # production build
+npm run start   # serve the production build
+npm run lint    # ESLint (eslint-config-next)
+```
 
-## Deploy on Vercel
+## Architecture
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **`lib/timer/`** — the pure core. A reducer (`reducer.ts`) plus pure helpers for session sequencing, time formatting, and settings validation/clamping. No side effects, no React; fully unit-tested (100% statements, ~99% branches).
+- **`hooks/useTimer.ts`** — the single impure orchestrator. Owns the 1-second interval, fires the audio alert on completion, and reads/writes `localStorage`. The reducer stays pure; all effects live here.
+- **`components/`** — presentational React components (`PomodoroApp` composes the rest). Each ships a co-located `*.module.css`.
+- **`app/globals.css`** — design tokens (color, spacing, typography, radius, shadow, transition) defined once as CSS custom properties on `:root`, plus a per-mode `[data-mode]` `--accent` hook. Component CSS Modules reference only `var(--token)` for these values.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Styling:** CSS Modules + design tokens. No Tailwind, no CSS-in-JS. A future theme is a token swap, not a component rewrite.
+
+**Accessibility:** semantic HTML throughout (native buttons/inputs with associated labels), a visible `:focus-visible` ring on all interactive elements, a labelled segmented control for mode switching (`aria-pressed`), and a polite `role="status"` live region that announces session transitions for screen-reader users.

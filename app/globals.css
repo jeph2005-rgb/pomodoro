@@ -58,6 +58,10 @@
   /* Transition */
   --transition-fast: 120ms ease;
   --transition-base: 220ms ease;
+
+  /* Focus indicator (WCAG 2.4.11) */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
 }
 
 /* Per-mode accent hook: the app root carries data-mode. */
@@ -99,4 +103,30 @@ body > div {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+/*
+ * Global visible focus indicator (WCAG 2.4.11). Every interactive element
+ * gets a clear >=2px ring on keyboard focus. Components must not override this
+ * with `outline: none` unless they supply an equivalent replacement.
+ */
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--accent);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/*
+ * Visually-hidden but screen-reader-accessible (clip-rect pattern). Used for
+ * the polite live region that announces session transitions.
+ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

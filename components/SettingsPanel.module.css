@@ -63,8 +63,12 @@
   color: var(--color-text);
 }
 
-.input:focus {
-  outline: none;
+/*
+ * Keep the accent border as a hint, but no longer suppress the outline:
+ * the global :focus-visible ring (globals.css) provides the >=2px WCAG 2.4.11
+ * indicator on all interactive elements, including this input.
+ */
+.input:focus-visible {
   border-color: var(--accent);
 }
 

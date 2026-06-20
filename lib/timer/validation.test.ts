@@ -53,6 +53,14 @@ describe('clampSettings', () => {
     ).toBe(DEFAULT_SETTINGS.focusMinutes);
   });
 
+  it('skips keys present but explicitly undefined, keeping the prior value', () => {
+    const merged = clampSettings(
+      { focusMinutes: undefined },
+      DEFAULT_SETTINGS
+    );
+    expect(merged.focusMinutes).toBe(DEFAULT_SETTINGS.focusMinutes);
+  });
+
   it('merges only provided keys and passes autoStartNext through', () => {
     const merged = clampSettings(
       { autoStartNext: true, focusMinutes: 30 },
@@ -73,6 +81,12 @@ describe('coerceSetting', () => {
   it('returns the fallback for invalid numeric input', () => {
     expect(coerceSetting('focusMinutes', '', 25)).toBe(25);
     expect(coerceSetting('focusMinutes', NaN, 25)).toBe(25);
+  });
+
+  it('returns the fallback for a non-string, non-number numeric input', () => {
+    // e.g. a boolean/object sneaking into a numeric field (malformed storage).
+    expect(coerceSetting('focusMinutes', true as unknown as number, 25)).toBe(25);
+    expect(coerceSetting('focusMinutes', null as unknown as number, 25)).toBe(25);
   });
 
   it('passes booleans through and falls back on invalid boolean input', () => {
