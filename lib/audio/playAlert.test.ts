@@ -89,13 +89,29 @@ describe('playAlert', () => {
       delete (window as unknown as { AudioContext?: unknown }).AudioContext;
     });
 
-    it('plays a tone via a single shared context', async () => {
+    it('plays the two-note chime via a single shared context', async () => {
       const mod = await import('./playAlert');
-      mod.unlockAudio();
+      mod.unlockAudio(); // resumes -> running
       mod.playAlert();
       mod.playAlert();
       expect(createdContexts).toBe(1);
       expect(resumeCalls).toBeGreaterThanOrEqual(1);
+      // Two notes per chime, two chimes => four oscillators.
+      expect(startCalls).toBe(4);
+    });
+
+    it('on a suspended context, schedules the tones only AFTER resume resolves', async () => {
+      const mod = await import('./playAlert');
+      // Context is created suspended (no prior unlock). This is the long /
+      // backgrounded-session case. The tones must NOT be scheduled against the
+      // frozen pre-resume clock.
+      mod.playAlert();
+      expect(resumeCalls).toBe(1);
+      // Nothing scheduled synchronously — we are still waiting on resume().
+      expect(startCalls).toBe(0);
+      // Flush the resume() microtask; now the chime is scheduled on the running clock.
+      await Promise.resolve();
+      await Promise.resolve();
       expect(startCalls).toBe(2);
     });
   });
