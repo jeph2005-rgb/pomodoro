@@ -12,6 +12,7 @@
 		349DC5388B420DE0FCF2219E /* MenuContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8730ADD501F0EE303D3DC8 /* MenuContent.swift */; };
 		622CDE119B4BC5077EF0F875 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC95BCD18124301950193DFF /* SessionType.swift */; };
 		664FB5282E4FF890B0280DA3 /* SessionCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6855FCE998801530DF6B86AE /* SessionCounterView.swift */; };
+		69BD8EB4FDC881D7EB87C445 /* LoginItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2801AEEDA8B3BD7FD693C7D2 /* LoginItem.swift */; };
 		6F54594870676DBA33BA8AA7 /* TimerWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130C30EB0BC74F421A3BF1A7 /* TimerWindowView.swift */; };
 		79AF652E4462419FDEEEF34F /* ReducerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EBDDE957E395CD82DEE123 /* ReducerTests.swift */; };
 		7F5CFE2F5956228C554D02DD /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70441366F2D88B7206AE478 /* Clock.swift */; };
@@ -60,6 +61,7 @@
 		130C30EB0BC74F421A3BF1A7 /* TimerWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerWindowView.swift; sourceTree = "<group>"; };
 		156189FF68B434EBF13BCD8A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		18506C48945B5F8A70EEACD1 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
+		2801AEEDA8B3BD7FD693C7D2 /* LoginItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItem.swift; sourceTree = "<group>"; };
 		3233C5874EBB110939B11AEF /* Sequencing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequencing.swift; sourceTree = "<group>"; };
 		3E4E1E6AF8E58645320EB6EC /* SequencingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencingTests.swift; sourceTree = "<group>"; };
 		47CF75C65F51C633079CE0D8 /* EngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineTests.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				D70441366F2D88B7206AE478 /* Clock.swift */,
+				2801AEEDA8B3BD7FD693C7D2 /* LoginItem.swift */,
 				E392B089D7315F20321F9C6D /* SettingsStore.swift */,
 				FD39192B1DBBE2323F32CF5B /* TimerEngine.swift */,
 			);
@@ -322,6 +325,7 @@
 				7F5CFE2F5956228C554D02DD /* Clock.swift in Sources */,
 				A1427B0E867F5303C29CC3D0 /* ControlsView.swift in Sources */,
 				D60323BDDFAE026CBA70AE30 /* Format.swift in Sources */,
+				69BD8EB4FDC881D7EB87C445 /* LoginItem.swift in Sources */,
 				EA5667F11168DAD4E90B36C3 /* MenuBarLabel.swift in Sources */,
 				349DC5388B420DE0FCF2219E /* MenuContent.swift in Sources */,
 				C3883A9A70F16CA4BABB7575 /* ModeTabsView.swift in Sources */,
