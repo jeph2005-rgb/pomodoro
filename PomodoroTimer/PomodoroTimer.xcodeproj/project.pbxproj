@@ -24,6 +24,7 @@
 		D857E979653DB9CDF0011173 /* SettingsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871D698434EC2669B2A3498 /* SettingsStoreTests.swift */; };
 		F69A4CF378589869078688B3 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E392B089D7315F20321F9C6D /* SettingsStore.swift */; };
 		FA55729E4E27EA26D8A91E30 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B3E6175110966FD5DB08B6 /* TimerState.swift */; };
+		FE489CB2ECAC4BE826E220F4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156189FF68B434EBF13BCD8A /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		04B796140F371F0084985F2D /* PomodoroTimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PomodoroTimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11D9AC106755BB84146725E4 /* Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
+		156189FF68B434EBF13BCD8A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		18506C48945B5F8A70EEACD1 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		3233C5874EBB110939B11AEF /* Sequencing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequencing.swift; sourceTree = "<group>"; };
 		3E4E1E6AF8E58645320EB6EC /* SequencingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencingTests.swift; sourceTree = "<group>"; };
@@ -93,6 +95,14 @@
 			path = Unit;
 			sourceTree = "<group>";
 		};
+		661FF394E2D1B9E478C9511C /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				156189FF68B434EBF13BCD8A /* Theme.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		700C7CC6973E26DFC56A1E70 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +125,7 @@
 				700C7CC6973E26DFC56A1E70 /* App */,
 				EB60ED5682D1AB69BB8E4C3A /* Core */,
 				04705F950891CFFCDC75D393 /* Engine */,
+				661FF394E2D1B9E478C9511C /* UI */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -287,6 +298,7 @@
 				9F704A9520C23B3FC550E3F8 /* Sequencing.swift in Sources */,
 				622CDE119B4BC5077EF0F875 /* SessionType.swift in Sources */,
 				F69A4CF378589869078688B3 /* SettingsStore.swift in Sources */,
+				FE489CB2ECAC4BE826E220F4 /* Theme.swift in Sources */,
 				97EFB2BD27B6DAC406824590 /* TimerEngine.swift in Sources */,
 				BC283F9FC8FDA4C3C87F3DF9 /* TimerSettings.swift in Sources */,
 				FA55729E4E27EA26D8A91E30 /* TimerState.swift in Sources */,
