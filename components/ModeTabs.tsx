@@ -1,4 +1,5 @@
 import type { SessionType } from '@/lib/timer';
+import { cx } from '@/lib/cx';
 import styles from './ModeTabs.module.css';
 
 interface ModeTabsProps {
@@ -24,7 +25,7 @@ export default function ModeTabs({ current, onSelect }: ModeTabsProps) {
             type="button"
             role="tab"
             aria-selected={active}
-            className={`${styles.tab} ${active ? styles.active : ''}`}
+            className={cx(styles.tab, active && styles.active)}
             onClick={() => onSelect(session)}
           >
             {label}

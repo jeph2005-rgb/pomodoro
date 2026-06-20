@@ -14,8 +14,8 @@ const mockedPlayAlert = playAlert as jest.MockedFunction<typeof playAlert>;
 /** user-event configured to drive jest fake timers. */
 function setup() {
   const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-  render(<PomodoroApp />);
-  return user;
+  const { container } = render(<PomodoroApp />);
+  return { user, container };
 }
 
 function getClock(): HTMLElement {
@@ -44,23 +44,25 @@ describe('PomodoroApp', () => {
     );
   });
 
-  it('counts down after Start: +1s -> 24:59, +60s -> 24:00', async () => {
-    const user = setup();
+  it('counts down after Start: 1s from start -> 24:59, 60s from start -> 24:00', async () => {
+    const { user } = setup();
     await user.click(screen.getByRole('button', { name: 'Start' }));
 
+    // 1s total elapsed.
     act(() => {
       jest.advanceTimersByTime(1000);
     });
     expect(getClock()).toHaveTextContent('24:59');
 
+    // 60s total elapsed (59 more seconds).
     act(() => {
-      jest.advanceTimersByTime(60_000);
+      jest.advanceTimersByTime(59_000);
     });
-    expect(getClock()).toHaveTextContent('23:59');
+    expect(getClock()).toHaveTextContent('24:00');
   });
 
   it('Pause halts the countdown and Resume continues it', async () => {
-    const user = setup();
+    const { user } = setup();
     await user.click(screen.getByRole('button', { name: 'Start' }));
 
     act(() => {
@@ -83,7 +85,7 @@ describe('PomodoroApp', () => {
   });
 
   it('Reset returns to 25:00 and stops', async () => {
-    const user = setup();
+    const { user } = setup();
     await user.click(screen.getByRole('button', { name: 'Start' }));
     act(() => {
       jest.advanceTimersByTime(5000);
@@ -97,7 +99,7 @@ describe('PomodoroApp', () => {
   });
 
   it('selecting the Short Break tab shows 05:00 and stops', async () => {
-    const user = setup();
+    const { user } = setup();
     await user.click(screen.getByRole('tab', { name: /short break/i }));
     expect(getClock()).toHaveTextContent('05:00');
     expect(screen.getByRole('button', { name: 'Start' })).toBeInTheDocument();
@@ -108,7 +110,7 @@ describe('PomodoroApp', () => {
   });
 
   it('plays the alert when a session completes', async () => {
-    const user = setup();
+    const { user } = setup();
     // Short Break is 5 minutes = 300s; run it down to zero.
     await user.click(screen.getByRole('tab', { name: /short break/i }));
     await user.click(screen.getByRole('button', { name: 'Start' }));
@@ -121,8 +123,7 @@ describe('PomodoroApp', () => {
   });
 
   it('the progress ring reflects elapsed proportion', async () => {
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    const { container } = render(<PomodoroApp />);
+    const { user, container } = setup();
 
     const ring = () => container.querySelector('[data-progress]') as HTMLElement;
     expect(ring()).toHaveAttribute('data-progress', '0.0000');

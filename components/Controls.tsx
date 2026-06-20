@@ -1,3 +1,4 @@
+import { cx } from '@/lib/cx';
 import styles from './Controls.module.css';
 
 interface ControlsProps {
@@ -46,7 +47,7 @@ export default function Controls({
     <div className={styles.controls}>
       <button
         type="button"
-        className={`${styles.button} ${styles.primary}`}
+        className={cx(styles.button, styles.primary)}
         onClick={onToggle}
       >
         {toggleLabel}
