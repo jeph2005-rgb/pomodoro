@@ -38,7 +38,7 @@ struct PomodoroTimerApp: App {
             return TimerEngine(
                 store: SettingsStore(defaults: defaults),
                 clock: .accelerated(factor: 60),
-                onSessionComplete: { _, _ in }    // sound/notifications wired in Phase 5
+                onSessionComplete: { _, _ in }    // intentionally silent: suppress sound/notifications during UI tests
             )
         }
         Notifier.requestAuthorization()
