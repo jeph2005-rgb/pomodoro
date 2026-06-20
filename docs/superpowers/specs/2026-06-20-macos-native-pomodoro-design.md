@@ -97,6 +97,7 @@ The single impure orchestrator. Holds the current `TimerState`, exposes intent m
 - **Persistence (FR-10):** load/save `TimerSettings` to `UserDefaults` (Codable). Running timer state stays in-memory (resets on relaunch), matching the PRD. *(Optional, noted not built: persisting `endDate` to survive relaunch.)*
 - **Launch-at-login:** optional toggle via `SMAppService.mainApp`.
 - **Injectable clock:** the engine takes a `now: () -> Date` dependency so all timing is deterministically unit-testable (the native analog of the web app's fake timers).
+- **UI-test affordance:** when launched with the argument `-uiTestMode` (set via `XCUIApplication.launchArguments`), the engine interprets durations as **seconds instead of minutes** (a "1-minute" focus completes in ~1 s) and may reset persisted settings to a known baseline. This lets XCUITest exercise the full start → countdown → complete → next-session → counter flow in a couple of seconds without waiting real minutes, and without weakening the production validation rules. This flag is the only test-specific behavior in the shipping binary and is inert unless explicitly passed.
 
 ### Layer 3 — UI (SwiftUI)
 Two surfaces, both reading the same `TimerEngine` state:
@@ -119,7 +120,7 @@ Two surfaces, both reading the same `TimerEngine` state:
 | design tokens (`globals.css`) | `Theme.swift` / Asset Catalog colors | Per-mode accent derived from `currentSession`. |
 | menu bar (new) | `MenuBarLabel`, `MenuContent` | Live countdown + quick actions. |
 
-Accessibility: SwiftUI controls are accessible by default; preserve clear labels, the timer's value, and full keyboard operability (parity with the web app's a11y intent).
+Accessibility: SwiftUI controls are accessible by default; preserve clear labels, the timer's value, and full keyboard operability (parity with the web app's a11y intent). **Every interactive view (and the clock/counter text) carries a stable `.accessibilityIdentifier(...)`** (e.g. `start-button`, `mode-tab-focus`, `focus-minutes-field`, `clock`, `session-counter`). This is both an a11y win and the hook XCUITest uses to find elements deterministically.
 
 ---
 
@@ -170,18 +171,38 @@ PomodoroTimer/                       # Xcode macOS app target (Swift, SwiftUI)
     SessionCounterView.swift
     Theme.swift
   Resources/                         # sound asset, AppIcon, Info.plist, entitlements
-PomodoroTimerTests/                  # XCTest
+PomodoroTimerTests/                  # XCTest (unit)
   Core tests (port the 92 web cases)
   Engine timing tests (clock-injected)
+PomodoroTimerUITests/                # XCUITest (end-to-end smoke; launches with -uiTestMode)
+  TimerFlowUITests.swift
 ```
 
 ---
 
 ## 6. Testing strategy
 
-- **`TimerCore`:** port the existing **92 test cases** to XCTest — `formatTime`, sequencing (incl. the skip-at-threshold rule), validation (clamp/round/reject), and the reducer (completion increments counters/`completionCount`, long-break resets `cyclePosition`, skip rules, `updateSettings` idle-vs-running, `totalSeconds` invariants). Hold the core to ≥90% coverage.
-- **`TimerEngine`:** inject a fake clock; advance `Date` to assert: countdown reaches 0 and completes; auto-start sets the next `endDate`; pause/resume preserve remaining; wake/recompute yields correct remaining after a simulated jump (the drift regression test). No real waiting.
-- **UI:** light SwiftUI smoke tests / previews; the heavy logic lives below the UI by design.
+Three layers, heaviest at the bottom (matching the web app's pyramid). All run from the command line via `xcodebuild test` (and in Xcode), so they're CI-friendly and I can run them the way I ran `npm test`.
+
+### 6.1 Unit — `TimerCore` (XCTest)
+Port the existing **92 test cases** — `formatTime`, sequencing (incl. the skip-at-threshold rule), validation (clamp/round/reject), and the reducer (completion increments counters/`completionCount`, long-break resets `cyclePosition`, skip rules, `updateSettings` idle-vs-running, `totalSeconds` invariants). Hold the core to ≥90% coverage.
+
+### 6.2 Unit — `TimerEngine` (XCTest, injected clock)
+Inject a fake clock; advance `Date` to assert: countdown reaches 0 and completes; auto-start sets the next `endDate`; pause/resume preserve remaining; wake/recompute yields correct remaining after a simulated time jump (the **drift regression test**). No real waiting.
+
+### 6.3 UI — `PomodoroTimerUITests` (XCUITest)
+A focused **end-to-end smoke suite** that launches the real app with `-uiTestMode` (durations as seconds) and drives it through the accessibility layer, locating controls by their `accessibilityIdentifier`. Covers the interaction wiring the unit layer can't:
+- Launches showing the default focus session at the expected time and three mode tabs.
+- Start begins the countdown (clock value decreases); Pause halts it; Resume continues.
+- Reset returns to full duration and stops.
+- Selecting a mode tab switches the displayed session/time and stops.
+- Editing a duration in settings updates the displayed time; an out-of-range/empty entry reverts to a valid value.
+- **Completion flow** (fast via `-uiTestMode`): a focus session runs to zero, advances to the break, and the completed-focus counter increments to 1.
+
+**Scope & caveats (deliberate):**
+- The suite is a handful of high-value flows, not exhaustive — correctness lives in 6.1/6.2. UI tests are slower and more brittle by nature.
+- **Window flows are the target; the `MenuBarExtra` is best-effort** — driving menu-bar status items via XCUITest is unreliable, so menu-bar coverage is limited to what proves robust.
+- **Running them needs:** Xcode + Command Line Tools, a logged-in GUI session, and a likely **one-time Accessibility/Automation permission grant** to the test runner on first run. No third-party tools or MCP servers.
 
 ---
 
@@ -191,9 +212,9 @@ Each phase gate: builds clean, all tests green.
 
 - **Phase 1 — Scaffold + `TimerCore` (TDD).** Create the Xcode project (macOS app, SwiftUI, target 14+). Implement `TimerCore` and port the 92 logic tests. *(First point that requires Xcode.)* **Gate.**
 - **Phase 2 — `TimerEngine`.** Timestamp timing with injectable clock; settings persistence (`UserDefaults`). Clock-injected timing tests, including the drift/wake regression test. **Gate.**
-- **Phase 3 — Main window UI.** `TimerWindowView` with mode tabs, progress ring, clock, controls, session counter, wired to the engine. **Gate.**
+- **Phase 3 — Main window UI.** `TimerWindowView` with mode tabs, progress ring, clock, controls, session counter, wired to the engine; each interactive view gets its `accessibilityIdentifier`. Add the `-uiTestMode` launch hook and the first **XCUITest** smoke tests (launch/default state, start→countdown, pause/resume, reset, mode switch). **Gate (incl. UI tests).**
 - **Phase 4 — Menu-bar app.** `MenuBarExtra` live countdown + menu; window/menu-bar integration; app lifecycle (activate/wake recompute). **Gate.**
-- **Phase 5 — Settings, sound, notifications, polish.** `SettingsView`; native sound + completion notification; optional launch-at-login; app icon; accessibility pass. **Gate.**
+- **Phase 5 — Settings, sound, notifications, polish.** `SettingsView`; native sound + completion notification; optional launch-at-login; app icon; accessibility pass. Extend the XCUITest suite with the settings-edit/revert and fast **completion → break → counter** flows. **Gate (incl. full UI suite).**
 
 ---
 
@@ -214,5 +235,6 @@ Each phase gate: builds clean, all tests green.
 - Menu-bar countdown and the main window both reflect live state and controls work from each.
 - Settings validate to bounds and persist across relaunch; running state is in-memory.
 - `TimerCore` tests (ported 92 cases) and engine timing tests pass; core coverage ≥90%.
+- The `PomodoroTimerUITests` (XCUITest) smoke suite passes via `xcodebuild test` — covering default state, start/pause/resume, reset, mode switch, settings edit/revert, and the fast completion → break → counter flow.
 - App builds and runs locally on the dev Mac (no signing/notarization needed).
 - Web prototype retired to `/web-prototype` (or removed; preserved in git history).
