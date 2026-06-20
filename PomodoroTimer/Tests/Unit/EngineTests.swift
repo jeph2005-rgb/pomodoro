@@ -6,7 +6,7 @@ final class EngineTests: XCTestCase {
     private final class FakeClock {
         var current = Date(timeIntervalSinceReferenceDate: 0)
         func clock() -> Clock { Clock(now: { self.current }) }
-        func advance(_ seconds: TimeInterval) { current.addingTimeInterval(seconds); current = current.addingTimeInterval(seconds) }
+        func advance(_ seconds: TimeInterval) { current = current.addingTimeInterval(seconds) }
     }
 
     private func makeEngine(_ fake: FakeClock, settings: TimerSettings = .default)
@@ -68,6 +68,25 @@ final class EngineTests: XCTestCase {
         e.start()
         fake.advance(1000); e.refresh()               // single big jump
         XCTAssertEqual(e.state.remainingSeconds, 500)
+    }
+
+    func testCompletionCallbackReceivesCompletedAndNextSessions() {
+        var short = TimerSettings.default; short.focusMinutes = 1 // 60s
+        let fake = FakeClock()
+        let suite = "test.\(UUID().uuidString)"
+        let store = SettingsStore(defaults: UserDefaults(suiteName: suite)!)
+        store.save(short)
+        var captured: (completed: SessionType, next: SessionType)?
+        let engine = TimerEngine(
+            store: store,
+            clock: fake.clock(),
+            autoStartTimer: false,
+            onSessionComplete: { completed, next in captured = (completed, next) }
+        )
+        engine.start()
+        fake.advance(60); engine.refresh()
+        XCTAssertEqual(captured?.completed, .focus)
+        XCTAssertEqual(captured?.next, .shortBreak)
     }
 
     func testUpdateSettingsPersists() {

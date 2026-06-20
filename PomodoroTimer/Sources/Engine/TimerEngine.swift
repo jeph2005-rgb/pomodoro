@@ -61,10 +61,11 @@ final class TimerEngine {
 
     private func startDisplayTimer() {
         stopDisplayTimer()
-        timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { [weak self] _ in
+        let t = Timer(timeInterval: 0.25, repeats: true) { [weak self] _ in
             self?.refresh()
         }
-        timer.map { RunLoop.main.add($0, forMode: .common) }
+        RunLoop.main.add(t, forMode: .common)
+        timer = t
     }
 
     private func stopDisplayTimer() { timer?.invalidate(); timer = nil }
