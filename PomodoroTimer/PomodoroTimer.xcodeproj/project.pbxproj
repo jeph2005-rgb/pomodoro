@@ -14,8 +14,10 @@
 		7F5CFE2F5956228C554D02DD /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70441366F2D88B7206AE478 /* Clock.swift */; };
 		812D5EB70FEC1B0A06249F8F /* SequencingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E1E6AF8E58645320EB6EC /* SequencingTests.swift */; };
 		82DAA561087DDF68676DD4C8 /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D9AC106755BB84146725E4 /* Reducer.swift */; };
+		952BDAED1521A2429B96AD77 /* EngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CF75C65F51C633079CE0D8 /* EngineTests.swift */; };
 		960F03D3E25F3BBD8CD7DF6A /* FormatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB5A993DC6FC187BA1A48EB /* FormatTests.swift */; };
 		9777BC8AE20844B569AED3C3 /* PomodoroTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E70BDCBD9D0F8A8147B1B92 /* PomodoroTimerApp.swift */; };
+		97EFB2BD27B6DAC406824590 /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD39192B1DBBE2323F32CF5B /* TimerEngine.swift */; };
 		9F704A9520C23B3FC550E3F8 /* Sequencing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3233C5874EBB110939B11AEF /* Sequencing.swift */; };
 		BC283F9FC8FDA4C3C87F3DF9 /* TimerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3817A190C2C871B1A63694 /* TimerSettings.swift */; };
 		D60323BDDFAE026CBA70AE30 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18506C48945B5F8A70EEACD1 /* Format.swift */; };
@@ -47,6 +49,7 @@
 		18506C48945B5F8A70EEACD1 /* Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
 		3233C5874EBB110939B11AEF /* Sequencing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequencing.swift; sourceTree = "<group>"; };
 		3E4E1E6AF8E58645320EB6EC /* SequencingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencingTests.swift; sourceTree = "<group>"; };
+		47CF75C65F51C633079CE0D8 /* EngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineTests.swift; sourceTree = "<group>"; };
 		5871D698434EC2669B2A3498 /* SettingsStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStoreTests.swift; sourceTree = "<group>"; };
 		8D4121038FE7FCFC70424658 /* PomodoroTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E70BDCBD9D0F8A8147B1B92 /* PomodoroTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimerApp.swift; sourceTree = "<group>"; };
@@ -62,6 +65,7 @@
 		DD00DD992114F5B8B4F94911 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		E2EBDDE957E395CD82DEE123 /* ReducerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReducerTests.swift; sourceTree = "<group>"; };
 		E392B089D7315F20321F9C6D /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		FD39192B1DBBE2323F32CF5B /* TimerEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -70,6 +74,7 @@
 			children = (
 				D70441366F2D88B7206AE478 /* Clock.swift */,
 				E392B089D7315F20321F9C6D /* SettingsStore.swift */,
+				FD39192B1DBBE2323F32CF5B /* TimerEngine.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -78,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				B6CE366E99E201D7EFAC3D1B /* .gitkeep */,
+				47CF75C65F51C633079CE0D8 /* EngineTests.swift */,
 				9AB5A993DC6FC187BA1A48EB /* FormatTests.swift */,
 				E2EBDDE957E395CD82DEE123 /* ReducerTests.swift */,
 				3E4E1E6AF8E58645320EB6EC /* SequencingTests.swift */,
@@ -261,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				952BDAED1521A2429B96AD77 /* EngineTests.swift in Sources */,
 				960F03D3E25F3BBD8CD7DF6A /* FormatTests.swift in Sources */,
 				79AF652E4462419FDEEEF34F /* ReducerTests.swift in Sources */,
 				812D5EB70FEC1B0A06249F8F /* SequencingTests.swift in Sources */,
@@ -280,6 +287,7 @@
 				9F704A9520C23B3FC550E3F8 /* Sequencing.swift in Sources */,
 				622CDE119B4BC5077EF0F875 /* SessionType.swift in Sources */,
 				F69A4CF378589869078688B3 /* SettingsStore.swift in Sources */,
+				97EFB2BD27B6DAC406824590 /* TimerEngine.swift in Sources */,
 				BC283F9FC8FDA4C3C87F3DF9 /* TimerSettings.swift in Sources */,
 				FA55729E4E27EA26D8A91E30 /* TimerState.swift in Sources */,
 				17FEC52E3100F1CDD18F9626 /* Validation.swift in Sources */,
