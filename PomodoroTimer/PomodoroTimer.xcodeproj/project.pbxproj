@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0122E444A9D9F73C6F47CE32 /* ValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07719A9365394419FB2CE31 /* ValidationTests.swift */; };
+		17FEC52E3100F1CDD18F9626 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74EDA582A29BA6BF1DEE1E3 /* Validation.swift */; };
 		622CDE119B4BC5077EF0F875 /* SessionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC95BCD18124301950193DFF /* SessionType.swift */; };
 		812D5EB70FEC1B0A06249F8F /* SequencingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E1E6AF8E58645320EB6EC /* SequencingTests.swift */; };
 		960F03D3E25F3BBD8CD7DF6A /* FormatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB5A993DC6FC187BA1A48EB /* FormatTests.swift */; };
@@ -43,7 +45,9 @@
 		8E70BDCBD9D0F8A8147B1B92 /* PomodoroTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimerApp.swift; sourceTree = "<group>"; };
 		990AE4D040EC19357EA8CAFF /* PomodoroTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PomodoroTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AB5A993DC6FC187BA1A48EB /* FormatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatTests.swift; sourceTree = "<group>"; };
+		A74EDA582A29BA6BF1DEE1E3 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		AC95BCD18124301950193DFF /* SessionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionType.swift; sourceTree = "<group>"; };
+		B07719A9365394419FB2CE31 /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
 		B6CE366E99E201D7EFAC3D1B /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		BF3817A190C2C871B1A63694 /* TimerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettings.swift; sourceTree = "<group>"; };
 		C8B3E6175110966FD5DB08B6 /* TimerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerState.swift; sourceTree = "<group>"; };
@@ -57,6 +61,7 @@
 				B6CE366E99E201D7EFAC3D1B /* .gitkeep */,
 				9AB5A993DC6FC187BA1A48EB /* FormatTests.swift */,
 				3E4E1E6AF8E58645320EB6EC /* SequencingTests.swift */,
+				B07719A9365394419FB2CE31 /* ValidationTests.swift */,
 			);
 			path = Unit;
 			sourceTree = "<group>";
@@ -122,6 +127,7 @@
 				AC95BCD18124301950193DFF /* SessionType.swift */,
 				BF3817A190C2C871B1A63694 /* TimerSettings.swift */,
 				C8B3E6175110966FD5DB08B6 /* TimerState.swift */,
+				A74EDA582A29BA6BF1DEE1E3 /* Validation.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -234,6 +240,7 @@
 			files = (
 				960F03D3E25F3BBD8CD7DF6A /* FormatTests.swift in Sources */,
 				812D5EB70FEC1B0A06249F8F /* SequencingTests.swift in Sources */,
+				0122E444A9D9F73C6F47CE32 /* ValidationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +254,7 @@
 				622CDE119B4BC5077EF0F875 /* SessionType.swift in Sources */,
 				BC283F9FC8FDA4C3C87F3DF9 /* TimerSettings.swift in Sources */,
 				FA55729E4E27EA26D8A91E30 /* TimerState.swift in Sources */,
+				17FEC52E3100F1CDD18F9626 /* Validation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
