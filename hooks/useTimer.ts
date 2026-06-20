@@ -1,9 +1,12 @@
 'use client';
 
 import { useCallback, useEffect, useReducer, useRef } from 'react';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { playAlert, unlockAudio } from '@/lib/audio/playAlert';
 import {
+  DEFAULT_SETTINGS,
   STORAGE_KEY,
+  clampSettings,
   createInitialState,
   timerReducer,
 } from '@/lib/timer';
@@ -25,25 +28,15 @@ export interface UseTimerResult {
   updateSettings: (partial: Partial<TimerSettings>) => void;
 }
 
-/** Read persisted settings, hydration-safe. Returns null if unavailable/bad. */
-function readPersistedSettings(): Partial<TimerSettings> | null {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (raw === null) {
-      return null;
-    }
-    return JSON.parse(raw) as Partial<TimerSettings>;
-  } catch {
-    return null;
-  }
-}
-
-function persistSettings(settings: TimerSettings): void {
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
-  } catch {
-    // Unavailable or quota: settings remain in memory only.
-  }
+/** Shallow value-equality for two settings objects. */
+function settingsEqual(a: TimerSettings, b: TimerSettings): boolean {
+  return (
+    a.focusMinutes === b.focusMinutes &&
+    a.shortBreakMinutes === b.shortBreakMinutes &&
+    a.longBreakMinutes === b.longBreakMinutes &&
+    a.sessionsUntilLongBreak === b.sessionsUntilLongBreak &&
+    a.autoStartNext === b.autoStartNext
+  );
 }
 
 /**
@@ -56,6 +49,15 @@ export function useTimer(): UseTimerResult {
     timerReducer,
     undefined,
     () => createInitialState()
+  );
+
+  // Persistence goes exclusively through the generic, hydration-safe
+  // localStorage hook. `storedSettings` is DEFAULT_SETTINGS on the first render
+  // (server + first client render) and becomes the persisted value after mount;
+  // `setStoredSettings` is the only writer to localStorage.
+  const [storedSettings, setStoredSettings] = useLocalStorage<TimerSettings>(
+    STORAGE_KEY,
+    DEFAULT_SETTINGS
   );
 
   // --- Interval: tick once per second only while running. ---
@@ -76,13 +78,27 @@ export function useTimer(): UseTimerResult {
     }
   }, [state.completionSignal]);
 
-  // --- Hydrate persisted settings once on mount. ---
+  // --- Hydrate persisted settings on initial load, before any user edit.
+  // useLocalStorage returns DEFAULT_SETTINGS during render and only resolves the
+  // persisted value in its own post-mount effect (a second render), so we react
+  // to `storedSettings` rather than reading once on mount. Until the user edits,
+  // we mirror storedSettings into the reducer via HYDRATE (clamped, so a
+  // tampered/partial payload can't inject bad durations). Each dispatch is
+  // value-guarded, so once the live settings match storedSettings no further
+  // HYDRATE fires. Crucially, the persist effect below never writes while
+  // `userHasEdited` is false, so storedSettings cannot change underneath us
+  // here — that combination is what prevents a HYDRATE/persist ping-pong.
+  const userHasEdited = useRef(false);
   useEffect(() => {
-    const persisted = readPersistedSettings();
-    if (persisted) {
-      dispatch({ type: 'HYDRATE', settings: persisted });
+    if (userHasEdited.current) {
+      return;
     }
-  }, []);
+    const next = clampSettings(storedSettings, DEFAULT_SETTINGS);
+    if (settingsEqual(state.settings, next)) {
+      return;
+    }
+    dispatch({ type: 'HYDRATE', settings: next });
+  }, [storedSettings, state.settings]);
 
   // First user-initiated start unlocks audio so later (possibly auto-fired)
   // alerts are not blocked by autoplay policy.
@@ -100,21 +116,29 @@ export function useTimer(): UseTimerResult {
     []
   );
 
-  const updateSettings = useCallback(
-    (partial: Partial<TimerSettings>) =>
-      dispatch({ type: 'UPDATE_SETTINGS', settings: partial }),
-    []
-  );
+  const updateSettings = useCallback((partial: Partial<TimerSettings>) => {
+    // Latch so subsequent storage write-backs can't re-HYDRATE the live timer.
+    userHasEdited.current = true;
+    dispatch({ type: 'UPDATE_SETTINGS', settings: partial });
+  }, []);
 
-  // Persist only on genuine settings changes. The ref is seeded with the
-  // initial settings reference, so the initial no-op render (same reference)
-  // is skipped and HYDRATE no longer echoes back to storage.
-  const prevSettings = useRef(state.settings);
+  // Persist genuine, user-initiated settings changes only. We deliberately do
+  // NOT write while `userHasEdited` is false: on mount the only settings change
+  // is the HYDRATE that mirrors the just-read stored value, and echoing that
+  // back would (a) be a redundant write on every mount and (b) feed storedSettings
+  // back into the HYDRATE effect above, causing a ping-pong. The `userHasEdited`
+  // latch (set in updateSettings) means the first write can only originate from
+  // a real user edit, and the value guard then makes repeat writes of the same
+  // value no-ops. No mount echo-back, no loop.
   useEffect(() => {
-    if (prevSettings.current === state.settings) return;
-    prevSettings.current = state.settings;
-    persistSettings(state.settings);
-  }, [state.settings]);
+    if (!userHasEdited.current) {
+      return;
+    }
+    if (settingsEqual(state.settings, storedSettings)) {
+      return;
+    }
+    setStoredSettings(state.settings);
+  }, [state.settings, storedSettings, setStoredSettings]);
 
   return {
     state,
