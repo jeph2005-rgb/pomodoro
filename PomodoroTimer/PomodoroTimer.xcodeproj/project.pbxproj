@@ -31,11 +31,13 @@
 		C9331475469410E56C1287F1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E866D451FD2DFA7AE29CD8 /* SettingsView.swift */; };
 		D60323BDDFAE026CBA70AE30 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18506C48945B5F8A70EEACD1 /* Format.swift */; };
 		D857E979653DB9CDF0011173 /* SettingsStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5871D698434EC2669B2A3498 /* SettingsStoreTests.swift */; };
+		DC3A021551C263E6F7FF8CA4 /* AlertSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8A5A6116EB1D4B4F2A6CED /* AlertSound.swift */; };
 		EA5667F11168DAD4E90B36C3 /* MenuBarLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051B13D0BB87158948EFCCCF /* MenuBarLabel.swift */; };
 		F2E56DB24918C32A2A947DB4 /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8CE577E423A5A97EEDFE7A /* ProgressRingView.swift */; };
 		F69A4CF378589869078688B3 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E392B089D7315F20321F9C6D /* SettingsStore.swift */; };
 		FA55729E4E27EA26D8A91E30 /* TimerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B3E6175110966FD5DB08B6 /* TimerState.swift */; };
 		FE489CB2ECAC4BE826E220F4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156189FF68B434EBF13BCD8A /* Theme.swift */; };
+		FE55451F0E3655E3F688B12A /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE5DC965D041761BA47B3F9 /* Notifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,11 +82,13 @@
 		AC95BCD18124301950193DFF /* SessionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionType.swift; sourceTree = "<group>"; };
 		B07719A9365394419FB2CE31 /* ValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationTests.swift; sourceTree = "<group>"; };
 		B6CE366E99E201D7EFAC3D1B /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		BE8A5A6116EB1D4B4F2A6CED /* AlertSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSound.swift; sourceTree = "<group>"; };
 		BF3817A190C2C871B1A63694 /* TimerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettings.swift; sourceTree = "<group>"; };
 		BF528FF84FAB69A461F86816 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		C8B3E6175110966FD5DB08B6 /* TimerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerState.swift; sourceTree = "<group>"; };
 		CB8730ADD501F0EE303D3DC8 /* MenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuContent.swift; sourceTree = "<group>"; };
 		D70441366F2D88B7206AE478 /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		DBE5DC965D041761BA47B3F9 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		DD00DD992114F5B8B4F94911 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		E2EBDDE957E395CD82DEE123 /* ReducerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReducerTests.swift; sourceTree = "<group>"; };
 		E392B089D7315F20321F9C6D /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
@@ -96,8 +100,10 @@
 		04705F950891CFFCDC75D393 /* Engine */ = {
 			isa = PBXGroup;
 			children = (
+				BE8A5A6116EB1D4B4F2A6CED /* AlertSound.swift */,
 				D70441366F2D88B7206AE478 /* Clock.swift */,
 				2801AEEDA8B3BD7FD693C7D2 /* LoginItem.swift */,
+				DBE5DC965D041761BA47B3F9 /* Notifier.swift */,
 				E392B089D7315F20321F9C6D /* SettingsStore.swift */,
 				FD39192B1DBBE2323F32CF5B /* TimerEngine.swift */,
 			);
@@ -325,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC3A021551C263E6F7FF8CA4 /* AlertSound.swift in Sources */,
 				7F5CFE2F5956228C554D02DD /* Clock.swift in Sources */,
 				A1427B0E867F5303C29CC3D0 /* ControlsView.swift in Sources */,
 				D60323BDDFAE026CBA70AE30 /* Format.swift in Sources */,
@@ -332,6 +339,7 @@
 				EA5667F11168DAD4E90B36C3 /* MenuBarLabel.swift in Sources */,
 				349DC5388B420DE0FCF2219E /* MenuContent.swift in Sources */,
 				C3883A9A70F16CA4BABB7575 /* ModeTabsView.swift in Sources */,
+				FE55451F0E3655E3F688B12A /* Notifier.swift in Sources */,
 				9777BC8AE20844B569AED3C3 /* PomodoroTimerApp.swift in Sources */,
 				F2E56DB24918C32A2A947DB4 /* ProgressRingView.swift in Sources */,
 				82DAA561087DDF68676DD4C8 /* Reducer.swift in Sources */,

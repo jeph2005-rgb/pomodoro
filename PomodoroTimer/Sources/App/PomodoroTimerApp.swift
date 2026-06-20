@@ -41,6 +41,10 @@ struct PomodoroTimerApp: App {
                 onSessionComplete: { _, _ in }    // sound/notifications wired in Phase 5
             )
         }
-        return TimerEngine()
+        Notifier.requestAuthorization()
+        return TimerEngine(onSessionComplete: { completed, next in
+            AlertSound.play()
+            Notifier.notifyCompletion(completed: completed, next: next)
+        })
     }
 }
